@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design a mobile micro-interaction with Principle</title>
+  <meta name="description" content="PrincipleForMac is a design tool for animating user interfaces for web, mobile and desktop. Prototyping an interactive user interface allows you to quickly e...">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/jarryd-wafer-logo.png">
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/tutorials/2017/01/23/design-a-mobile-micro-interaction-with-Principle.html">
+  <link rel="alternate" type="application/rss+xml" title="Jarryd Wafer" href="/feed.xml">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+</head>
+
+<body>
+<div class="mobile-menu menu--animateable">
+	<div class="app-menu-close">
+	</div>
+	<div class="app-menu">
+    <ul class="mobile-nav-list">
+      <li class="mobile-nav-list-item"><a href="/design-philosophy.html" class="mobile-nav-list-item-link nav-list-about">Design Philosophy</a></li>
+      <li class="mobile-nav-list-item"><a href="/case-studies/" class="mobile-nav-list-item-link nav-list-deck">Case Studies</a></li>
+      <li class="mobile-nav-list-item"><a href="/ux-toolset.html" class="mobile-nav-list-item-link nav-list-toolset">UX Toolset</a></li>
+      <li class="mobile-nav-list-item contact"><a href="javascript:void(0)" target="blank" class="mobile-nav-list-item-link contact-page-link">Contact</a></li>
+    </ul>
+  </div>
+</div>
+<header class="header fixed-header nav-up">
+  <nav class="get-started-nav">
+    <a href="/">
+      <h1 class="get-started-header">Jarryd Wafer</h1>
+    </a>
+    <ul class="get-started-nav-list">
+      <li class="get-started-nav-list-item"><a href="/design-philosophy.html" class="get-started-nav-list-item-link nav-list-about">Design Philosophy</a></li>
+      <li class="get-started-nav-list-item"><a href="/case-studies/" class="get-started-nav-list-item-link nav-list-deck">Case Studies</a></li>
+      <li class="get-started-nav-list-item"><a href="/ux-toolset.html" class="get-started-nav-list-item-link nav-list-toolset">UX Toolset</a></li>
+      <li class="get-started-nav-list-item contact"><a href="javascript:void(0)" target="blank" class="get-started-nav-list-item-link contact-page-link">Contact</a></li>
+    </ul>
+    <div class="menu-icon">
+      Menu
+    </div>
+  </nav>
+</header>
+
+<section class="blog-hero">
+  <div class="blog-featured-graphic tutorial-3">
+  </div>
+</section>
+
+<main class="page-content page-post" aria-label="Content">
+  <div class="wrapper">
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Design a mobile micro-interaction with Principle</h1>
+        <p class="post-meta"><time datetime="2017-01-24T03:11:00+01:00" itemprop="datePublished">Jan 23, 2017</time></p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p><a href="http://principleformac.com/">PrincipleForMac</a> is a design tool for animating user interfaces for web, mobile and desktop. Prototyping an interactive user interface allows you to quickly evaluate and share your ideas before investing valuable engineering time in development. In the long run, prototyping complex User Interface interactions will accelerate your design-development cycle.</p>
+
+<p>There are other tools out there to design animated, interactive user interface prototypes like <a href="https://framer.com/">Framer</a>. But for those that aren’t that very comfortable with Javascript and animating with code, Principle is a great place to start. Principle lets you create designs that look and feel amazing straight from Sketch artboards which makes for a simple and streamlined workflow.</p>
+
+<p>When I want to communicate a complex User Interface idea to a client, I like to quickly prototype the concept before jumping into code, so I often present an interaction for approval before going too deep. This motion graphic is based off of a recent menu interaction I presented for a mobile application redesign:</p>
+
+<p><img src="/assets/video/tutorials/principle-tutorial-interaction.gif" alt="" /></p>
+
+<p>I have found that developing a proper workflow can save you time and headaches. In this article, I will take you through the basics to create a simple interactive mobile UI animation. To get started, download <a href="http://principleformac.com/">Principle</a>, fire up Sketch, and grab a pen and blank sheet of paper.</p>
+
+<h3 id="start-with-a-solid-idea">Start with a solid idea</h3>
+
+<p>Principle works best if you plan layouts with ‘screens’ or ‘states’ that will transition into each other. Because you are going to be orchestrating a series of events, it is very helpful to have a general script. Try to think through and plan out the steps that you would like to animate:</p>
+
+<p>initial screen =&gt; interact with trigger =&gt; overlay appears + menu slides in =&gt; selection made =&gt; menu slides out + overlay fades =&gt; back at initial screen.</p>
+
+<p>If you are having trouble visualizing the UI interaction that you want to create, find a simple animation on your phone and try to recreate it. You can find some good examples here on <a href="https://dribbble.com/tags/principle">Dribbble</a>.</p>
+
+<p><img src="/assets/video/tutorials/principle-example-1.gif" alt="" /></p>
+
+<h3 id="layout-screens">Layout Screens</h3>
+
+<p>I start out by sketching a general screen flow to map out my initial ideas on paper. Then I will fire up Sketch and start laying out the interface elements and content blocks for the initial screen. I try to keep elements as generic as possible. You can effectively communicate interaction ideas with appropriate shapes and colors.</p>
+
+<p>I suggest that you spend time organizing your layers into clear, cohesive components. Try to nest layers as little as possible, but create clear groups that will animate together. You should turn these groups into symbols and utilized <a href="https://www.sketchapp.com/learn/documentation/symbols/nested-symbols/">nested symbols</a> for changing states. Proper organization helps Principle recognize the same layers from screen to screen even if sizes and styles change for that element.</p>
+
+<p>After finishing your first screen, duplicate that artboard and name it appropriately. Create your second screen with the changes that you would like to see. Here we will add a layer with opacity to cover our content and indicate that it is below the menu that we will be animating up from the bottom.</p>
+
+<p><img src="/assets/images/tutorials/sketch-layout.png" alt="" /></p>
+
+<p><em>Note when creating screens for Principle:</em></p>
+
+<p>When planning your animation, it is good practice to also figure out a way to animate back to the initial screen. This allows for you to create an animated gif that loops smoothly instead of jumping back to the initial screen at the end of the animation.</p>
+
+<p>Also, for each new element that you plan to introduce, you want to add that element in Sketch one screen before it appears. This allows Principle to automatically recognize a tween between the two states. In Sketch, when you move an element outside of an artboard, it removes that layer from that artboard’s hierarchy. No problem, if you drag the layer symbol back into the position that you want it in the appropriate artboard, the element will stay off screen, but it will now be in the proper place.</p>
+
+<h3 id="time-to-open-and-import-to-principle">Time to open and import to Principle</h3>
+
+<p>When you have finished setting up your screens, it is time to save your Sketch file and fire up Principle. The file that you are going to animate needs to be the only Sketch file open. In Principle, you will click the import button and it will show you the name of whatever Sketch file is open. Choose file, click import and now your artboards, layers, and groups should appear in Principle’s interface ready to animate.</p>
+
+<p><img src="/assets/images/tutorials/principle-layout.png" alt="" /></p>
+
+<p>A great feature is that you are able to work between Sketch and Principle pretty seamlessly. If you want to make changes to the files that you imported, you simply go back to Sketch, make changes, and re-import. Principle does a good job saving any interactions that you have already defined while introducing the new elements that you added in. If you want to change the position or other properties of a layer that was imported from Sketch, it’s easiest to make that change in Sketch and then import again.</p>
+
+<p>Here is a quick intro video to demonstrate what you can do with Principle and introduce you to the interface:</p>
+
+<iframe width="680" height="383" src="https://www.youtube.com/embed/vFrivX021-A" frameborder="0" allowfullscreen=""></iframe>
+
+<h3 id="setting-up-interactions-and-animations-in-principle">Setting up interactions and animations in Principle</h3>
+
+<p>Now that our screens are imported and the stage is set for our events, it’s time to start  orchestrating. There are lots of interesting techniques that you can utilize in principle. On a single screen you can create elements that scroll and tab. You can create interactions with transitions between screens. You can create independent, reusable components that have properties to embed into the parent file. And you can use Principle’s Driver feature to add some very dynamic, position based changes like rotation and scaling based on an interaction. You can learn more about all of these methods on Principle’s <a href="http://principleformac.com/tutorial.html">tutorial page</a>.</p>
+
+<p>In this example we will start by creating our first transition. Select the element that you want to act as the trigger. You will see a small circle with a lightning bolt icon. Click that icon and an action menu will pop up. I am animating a menu icon, so I am going to choose a ‘tap’ interaction. Click in the circle, and drag the arrow it creates to the screen you want to transition to. This will create your initial transition which you can test in principles live action screen.</p>
+
+<p><img src="/assets/images/tutorials/principle-create-transition.png" alt="" /></p>
+
+<p>Once you successfully set up your first transition and test it, it is time to configure the rest of the screen interactions that you planned out. If you now click on the transition arrows connecting your screens, it will pull up an animation timeline at the bottom of your project screen. This window will display all elements that change from screen to screen with matched properties that can be animated. Here is where proper organization and naming conventions from your sketch file will really help keep you organized. For each element, it will tell you what changes, for example x axis, y axis and opacity.</p>
+
+<p>You can move these properties around in the timeline panel and change the easing type by clicking ‘Default’ in the middle of the timeline element. You can change the length and the offset by simply moving the blue bar for the element. This allows you to orchestrate animations with very dynamic transitions.</p>
+
+<p><img src="/assets/images/tutorials/principle-layout-states.png" alt="" /></p>
+
+<p>There are all sorts of possibilities of what you can do with this application, and here is where you have the chance to play around and get creative until everything feels right to you. Principle has certain subtleties that you may have to dig up online to figure out, but once you figure out a solution they become simple processes. One such example is clipping and masking layers.</p>
+
+<p>You don’t create masks in Principle like you would in Illustrator or Sketch, which you would do by linking two layers. Instead, masks are create by groupings in folders. If you put elements in a folder, you simple click ‘Clip Sublayers’ and the layers in the folder will not appear outside of it’s bounds. Because of this, you want to organize your sketch layers according to how you want to clip them.</p>
+
+<h3 id="exporting-principle-files-to-share">Exporting Principle files to share.</h3>
+
+<p>Once your project runs how you want it to in the live action panel, it’s time to save and share your animation which you can do as a prototype, video, or animated gif.</p>
+
+<p><img src="/assets/video/tutorials/principle-tutorial-interaction.gif" alt="" /></p>
+
+<p>You can easily share as a video or animated gif by clicking the camera icon in the top right of the preview window. You have the option to use the round touch cursor, the arrow cursor, or have the cursor hidden in the recording. After selecting an option for the cursor, Principle begins a screen recording of the Preview window. When the icon starts blinking, the recording has started and you can begin to interact with your design (it may take a moment for the recording to start). Once you’re done recording your design, click the camera icon again to stop recording.</p>
+
+<p>If you’d like to share your designs to others that may not have Principle, you can export a standalone Mac app that anyone with a Mac can open. If you’d like to share you’re design for iOS, see <a href="http://principleformac.com/docs.html#running-on-device">Running on Device</a>. This is easily done if one downloads <a href="https://itunes.apple.com/us/app/principle-mirror-ui-design/id991911319?ls=1&amp;mt=8">Principle Mirror</a>.</p>
+
+<p>I hope that this article helps you to get started with Principle! It’s a great program that helps you build some really killer prototypes and motion graphics that really help to communicate great UI concepts!</p>
+
+      </div>
+
+      
+    </article>
+  </div>
+</main>
+
+<script>
+  var postBody = select('body');
+  postBody.classList.add('post');
+</script>
+
+<div id="contact-menu-wrap">
+
+  <a href="#" id="close" class="on">x</a>
+
+  <div class="contact-top-bg-section">
+    <img src="/assets/images/jarryd-wafer-portrait.png" class="contact-portrait">
+  </div>
+
+  <div class="contact-content-section page-home">
+    <p>My name is Jarryd Wafer and I live in Amsterdam, NL where I currently work as a Product and UX designer for Booking.com where I manage a team of software developers for an agile product team in Boooking's Marketing department.</p>
+    <p>I am currently interested in new projects and interested in full-time work opportunities, speaking engagements, and teaching opportunities.</p>
+    <p>Have something that you would like to talk about? Get in touch. Maybe we will get to build something great together! </p>
+    <p class="contact-sig">Jarryd Wafer</p>
+    <p class="contact-links">
+      <a href="mailto:jarrydwafer@gmail.com">Email</a> |
+      <a href="https://www.linkedin.com/in/jarryd-wafer" target="_blank">LinkedIn</a>
+      <!--
+      |
+      <a href="https://github.com/jarrydwafer" target="_blank">Github</a>
+      -->
+    </p>
+  </div>
+
+  <!-- Content to potentially add
+    'Resume and references avaiable at request'
+  -->
+</div>
+
+
+<footer class="site-footer">
+
+  <div class="wrapper">
+    <p class="footer-copy">
+    <a href="/">Home</a> | <a href="/case-studies/">Case Studies</a> | <a href="/tutorials/">Tutorials</a> | <a href="/ux-toolset.html">Toolset</a> | <a href="javascript:void(0)"class="contact-page-link">Connect</a><br>
+    © 2020 Jarryd Wafer. This site is open source. Want to see how I built it? <a href="https://github.com/jarrydwafer/portfolio">See the source</a>.
+    </p>
+  </div>
+
+</footer>
+
+</body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-88193410-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</html>

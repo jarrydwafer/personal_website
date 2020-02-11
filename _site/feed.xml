@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-11T15:37:09+01:00</updated><id>http://localhost:4000//</id><title type="html">Jarryd Wafer</title><subtitle>UX/UI Designer based in Santa Barbara, California.
+</subtitle><entry><title type="html">Building a Simple Ember.JS App</title><link href="http://localhost:4000/tutorials/2017/02/22/building-a-simple-ember-app.html" rel="alternate" type="text/html" title="Building a Simple Ember.JS App" /><published>2017-02-23T03:11:00+01:00</published><updated>2017-02-23T03:11:00+01:00</updated><id>http://localhost:4000/tutorials/2017/02/22/building-a-simple-ember-app</id><content type="html" xml:base="http://localhost:4000/tutorials/2017/02/22/building-a-simple-ember-app.html">&lt;h2 id=&quot;building-a-simple-ember-app&quot;&gt;BUILDING A SIMPLE EMBER APP&lt;/h2&gt;
+
+&lt;p&gt;Imagine that a group of developers had gone looking for best practices in creating a web app front end, and then codified what they found into a framework. That is the idea of Ember JS. Ember brings back the fun of Rails, this time for single-page applications with great performance.&lt;/p&gt;
+
+&lt;p&gt;Ember is an open source JavaScript framework, maintained at &lt;a href=&quot;http://emberjs.com&quot;&gt;emberjs.com&lt;/a&gt; and on Github. It provides much of the front-end infrastructure you need so you can speed up the development of web apps. While using ember, you’ll write less code and you’ll write simpler code. And simpler code is better code.&lt;/p&gt;
+
+&lt;p&gt;By injecting object-oriented design principles into JavaScript to help you strucutre your code in a sensible way, Ember lets you think at a modular level. this makes your app easier to create and maintain. The features packaged with Ember rely on Node.js, npm, and Handlebars.&lt;/p&gt;
+
+&lt;p&gt;In this tutorial we will build a simple, single page ember app. Let’s get it!&lt;/p&gt;
+
+&lt;h3 id=&quot;install-ember-and-ember-cli&quot;&gt;Install Ember and Ember CLI&lt;/h3&gt;
+
+&lt;p&gt;Ember CLI is a command-line interface for building Ember apps, and it’s the project team’s preferred means of obtaining the framework libraries. Ember CLI makes short work out of a lot of boilerplate tasks, such as building and deploying, executing tests, adding files to create new features, and so on.&lt;/p&gt;
+
+&lt;p&gt;It’s worth noting, that while we’ll use Node to run the Ember CLI development tools, Ember itself isn’t a server-side framework. Ember is used for creating browser-resident apps.&lt;/p&gt;
+
+&lt;p&gt;Let’s start out by installing bower, phantomjs (dependency as a test execution environment), and ember-cli globally.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;npm install -g bower
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;npm install -g phantomjs
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;npm install -g ember-cli
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Installing Ember CLI causes the Ember framework libraries to be installed, along with the CLI itself. Now that we have Ember and Ember CLI we’re ready to start coding.&lt;/p&gt;
+
+&lt;h3 id=&quot;creating-an-app-repository&quot;&gt;Creating an App Repository&lt;/h3&gt;
+
+&lt;p&gt;Ember CLI takes a very app-centric approach. The first thing you do is to create the app, and every module you create is part of that app. Our first step is to create the app’s repository (Ember CLI assumes you’ll be using Git, so it references a project as a repository).&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;ember new webapp
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Before we write our UI code, let’s also install a Bootstrap stylesheet to give us a good starting point. From your new Ember app directory, you can run the following commands:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;webapp
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;npm install
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;bower install
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;bower install bootstrap --save
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;and then add these lines to &lt;em&gt;webapp/ember-cli-buld.js&lt;/em&gt;, right before the last line of code:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;app.import('bower_components/bootstrap/dist/css/bootstrap.css');
+app.import('bower_components/bootstrap/dist/css/bootstrap.css.ma;',{
+  destDir: 'assets'
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Once you are able to do all of these thing successfully, you can now run your ember app with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;ember serve
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;creating-a-new-template&quot;&gt;Creating a new template&lt;/h3&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;ember generate template application
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Grow Co. Designs&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Generate a route for the homepage&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ember generate route homepage
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;routes&quot;&gt;Routes&lt;/h3&gt;
+
+&lt;h3 id=&quot;components&quot;&gt;Components&lt;/h3&gt;
+
+&lt;p&gt;To create an ember component:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ember generate component main-nav
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;typekit&quot;&gt;Typekit&lt;/h3&gt;
+
+&lt;h3 id=&quot;less&quot;&gt;LESS&lt;/h3&gt;
+
+&lt;h3 id=&quot;creating-a-contact-form&quot;&gt;Creating a contact form&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;nodemailer&lt;/li&gt;
+&lt;/ul&gt;</content><summary type="html">BUILDING A SIMPLE EMBER APP</summary></entry><entry><title type="html">Agency Analytics - Email Response</title><link href="http://localhost:4000/private/2017/02/15/agency-analytics-response.html" rel="alternate" type="text/html" title="Agency Analytics - Email Response" /><published>2017-02-15T10:29:00+01:00</published><updated>2017-02-15T10:29:00+01:00</updated><id>http://localhost:4000/private/2017/02/15/agency-analytics-response</id><content type="html" xml:base="http://localhost:4000/private/2017/02/15/agency-analytics-response.html">&lt;h4 id=&quot;1-how-many-hours-a-week-are-you-able-to-devote-to-this-position&quot;&gt;1) How many hours a week are you able to devote to this position?&lt;/h4&gt;
+
+&lt;p&gt;As many as necessary. I have the bandwidth for a fulltime commitment of 40 - 50 hours a week, no problem. I am also open to contract work.&lt;/p&gt;
+
+&lt;h4 id=&quot;2-have-you-ever-worked-remotely-at-a-previous-position-if-so-what-methods-did-you-use-in-order-to-communicate-and-go-over-project-specifications&quot;&gt;2) Have you ever worked remotely at a previous position? If so, what methods did you use in order to communicate and go over project specifications?&lt;/h4&gt;
+
+&lt;p&gt;I have not worked remote in a full time position, but I have worked remote on many contracts with distributed teams across the globe. I recently worked with a team in Belarus in an Agile environment. We had a stand up each morning (early morning on the west coast, evening in Belarus) and communicated throughout the day via Skype. We kept track of our sprints and progress on JIRA. Personally, I prefer Slack and Trello, but all these technologies are accomplishing the same goal - creating clear avenues of communication while keeping teams accountable and on the same page in as efficient of a way as possible.&lt;/p&gt;
+
+&lt;h4 id=&quot;3-please-describe-your-developer-experience-if-any-specifically-do-you-have-any-experience-with-reactjs-and-css&quot;&gt;3) Please describe your developer experience, if any. Specifically, do you have any experience with ReactJS and CSS?&lt;/h4&gt;
+
+&lt;p&gt;I am familiar with ReactJS projects runnings on a node server, but have not worked with ReactJS extensively.  I am comfortable with designing components and OOP. I have worked on a couple applications in EmberJS, which has many similarities. I am confident that I can ramp up my ReactJS knowledge quick, as I am eager to learn.&lt;/p&gt;
+
+&lt;p&gt;I consider my CSS experience to be very strong. I am interested and passionate about best practices for performance when writing complex CSS in a large production environment, starting with appropriate, performant selectors. I love designing  micro-interactions and animations in CSS that in the past we would use JQuery for. Currently experimenting with building complex illustrations and animations using SVG’s and CSS.&lt;/p&gt;
+
+&lt;h4 id=&quot;4-please-signup-for-a-trial-account-at-agencyanalyticscom-analyze-the-current-onboarding-screen-verify-email-specify-name-and-create-campaign-explain-how-you-would-change-this-area-to-create-a-better-user-experience&quot;&gt;4) Please signup for a trial account at agencyanalytics.com. Analyze the current onboarding screen (verify email, specify name and create campaign). Explain how you would change this area to create a better user experience.&lt;/h4&gt;
+
+&lt;p&gt;I am going to try and keep this brief and general, because honestly, I don’t feel all that comfortable auditing parts of the website before having a conversation with a human being at Agency Analytics.&lt;/p&gt;
+
+&lt;p&gt;That being said, I did a thorough dive into the product and recorded screen cast of the sign up experience on both desktop and mobile.&lt;/p&gt;
+
+&lt;p&gt;The sign up form is great. Clean, simple, no distractions. Step 1 to confirm email is easy and appropriate. Step 2 is straightforward as well. Step 3 is where I encountered some friction and I’m sure the biggest drop off is for incomplete registrations.&lt;/p&gt;
+
+&lt;p&gt;I encountered multiple bugs in the ‘Create Campaign’ process and wasn’t thrilled that it opened in a modal and tiled additional ‘authorization’ windows on top of that window.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/agency-analytics.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;However, my biggest issue as a new user was lack of information to learn more about steps I felt unsure about before listing keywords and giving access to services. Taking these personal actions seems out of context at this stage.&lt;/p&gt;
+
+&lt;p&gt;This could be done more effectively within the product when users are setting up a dashboard for the first time. Since the product doesn’t visually start out by leveraging any of the information users provide, it would be more appropriate to integrate these steps throughout the product onboarding.&lt;/p&gt;
+
+&lt;p&gt;I wouldn’t suggest making these changes without user testing for positive affirmation and AB testing to leverage user data to make the best data driven decision. There are a lot of small AB test that I think could help polish this experience as well, for instance changing the title from “Create Campaign” to something more inviting (since you are not in the product yet). But my main suggestion would be to integrate the ‘Create Campaign’ steps into the product onboarding. If it is necessary to keep this step before entering the product, I would start by adding more context and testing small changes to help remove user friction.&lt;/p&gt;
+
+&lt;h4 id=&quot;5-please-visit-agencyanalyticscom-and-hover-your-mouse-on-the-features-menu-link-you-should-see-a-popup-with-additonal-links-please-create-a-mockup-to-improve-the-look-of-this-popup-you-may-add-additional-components-ie-description-if-you-think-they-are-necessary&quot;&gt;5) Please visit agencyanalytics.com and hover your mouse on the features menu link (you should see a popup with additonal links). Please create a mockup to improve the look of this popup. You may add additional components (ie. description) if you think they are necessary.&lt;/h4&gt;
+
+&lt;p&gt;This is an unconventional dropdown from a top nav menu because it is horizontal, tiered, and has icons. I understand keeping design elements from the navigation on the Features pages, but I would suggest moving towards a more conventional navigational pattern and more consistent navigation in general. I would like to see a full horizontal navigation (on desktop) that is the same that you have on the Features pages. A clear example of the inconsistent design not working well:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/agency-analytics-bad-redundancy.png&quot; alt=&quot;&quot; /&gt;
+&lt;a href=&quot;/assets/images/case-studies/agency-analytics-bad-redundancy.png&quot; target=&quot;blank&quot;&gt;view full size&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;To affirm what really draws users in best, I would set up a multivariate test with these three states:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Control&lt;/li&gt;
+  &lt;li&gt;No dropdown on hover, link straight to feature landing page (or first feature)&lt;/li&gt;
+  &lt;li&gt;Same feature bar design from feature pages would push content down, as a delightful micro-interaction, to reveal consistent feature nav bar (below)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/homepage-feature-mock.png&quot; alt=&quot;&quot; /&gt;
+&lt;a href=&quot;/assets/images/case-studies/homepage-feature-mock.png&quot; target=&quot;blank&quot;&gt;view full size&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;On that note, thank you for giving me the opportunity to respond to your questions. Would love to talk to someone on the team to learn more about roles and responsibilities. If you have any questions, please feel free to contact me.&lt;/p&gt;
+
+&lt;p&gt;In Service ~ Jarryd Wafer&lt;/p&gt;</content><summary type="html">1) How many hours a week are you able to devote to this position?</summary></entry><entry><title type="html">Design a mobile micro-interaction with Principle</title><link href="http://localhost:4000/tutorials/2017/01/23/design-a-mobile-micro-interaction-with-Principle.html" rel="alternate" type="text/html" title="Design a mobile micro-interaction with Principle" /><published>2017-01-24T03:11:00+01:00</published><updated>2017-01-24T03:11:00+01:00</updated><id>http://localhost:4000/tutorials/2017/01/23/design-a-mobile-micro-interaction-with-Principle</id><content type="html" xml:base="http://localhost:4000/tutorials/2017/01/23/design-a-mobile-micro-interaction-with-Principle.html">&lt;p&gt;&lt;a href=&quot;http://principleformac.com/&quot;&gt;PrincipleForMac&lt;/a&gt; is a design tool for animating user interfaces for web, mobile and desktop. Prototyping an interactive user interface allows you to quickly evaluate and share your ideas before investing valuable engineering time in development. In the long run, prototyping complex User Interface interactions will accelerate your design-development cycle.&lt;/p&gt;
+
+&lt;p&gt;There are other tools out there to design animated, interactive user interface prototypes like &lt;a href=&quot;https://framer.com/&quot;&gt;Framer&lt;/a&gt;. But for those that aren’t that very comfortable with Javascript and animating with code, Principle is a great place to start. Principle lets you create designs that look and feel amazing straight from Sketch artboards which makes for a simple and streamlined workflow.&lt;/p&gt;
+
+&lt;p&gt;When I want to communicate a complex User Interface idea to a client, I like to quickly prototype the concept before jumping into code, so I often present an interaction for approval before going too deep. This motion graphic is based off of a recent menu interaction I presented for a mobile application redesign:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/video/tutorials/principle-tutorial-interaction.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I have found that developing a proper workflow can save you time and headaches. In this article, I will take you through the basics to create a simple interactive mobile UI animation. To get started, download &lt;a href=&quot;http://principleformac.com/&quot;&gt;Principle&lt;/a&gt;, fire up Sketch, and grab a pen and blank sheet of paper.&lt;/p&gt;
+
+&lt;h3 id=&quot;start-with-a-solid-idea&quot;&gt;Start with a solid idea&lt;/h3&gt;
+
+&lt;p&gt;Principle works best if you plan layouts with ‘screens’ or ‘states’ that will transition into each other. Because you are going to be orchestrating a series of events, it is very helpful to have a general script. Try to think through and plan out the steps that you would like to animate:&lt;/p&gt;
+
+&lt;p&gt;initial screen =&amp;gt; interact with trigger =&amp;gt; overlay appears + menu slides in =&amp;gt; selection made =&amp;gt; menu slides out + overlay fades =&amp;gt; back at initial screen.&lt;/p&gt;
+
+&lt;p&gt;If you are having trouble visualizing the UI interaction that you want to create, find a simple animation on your phone and try to recreate it. You can find some good examples here on &lt;a href=&quot;https://dribbble.com/tags/principle&quot;&gt;Dribbble&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/video/tutorials/principle-example-1.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;layout-screens&quot;&gt;Layout Screens&lt;/h3&gt;
+
+&lt;p&gt;I start out by sketching a general screen flow to map out my initial ideas on paper. Then I will fire up Sketch and start laying out the interface elements and content blocks for the initial screen. I try to keep elements as generic as possible. You can effectively communicate interaction ideas with appropriate shapes and colors.&lt;/p&gt;
+
+&lt;p&gt;I suggest that you spend time organizing your layers into clear, cohesive components. Try to nest layers as little as possible, but create clear groups that will animate together. You should turn these groups into symbols and utilized &lt;a href=&quot;https://www.sketchapp.com/learn/documentation/symbols/nested-symbols/&quot;&gt;nested symbols&lt;/a&gt; for changing states. Proper organization helps Principle recognize the same layers from screen to screen even if sizes and styles change for that element.&lt;/p&gt;
+
+&lt;p&gt;After finishing your first screen, duplicate that artboard and name it appropriately. Create your second screen with the changes that you would like to see. Here we will add a layer with opacity to cover our content and indicate that it is below the menu that we will be animating up from the bottom.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/tutorials/sketch-layout.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note when creating screens for Principle:&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;When planning your animation, it is good practice to also figure out a way to animate back to the initial screen. This allows for you to create an animated gif that loops smoothly instead of jumping back to the initial screen at the end of the animation.&lt;/p&gt;
+
+&lt;p&gt;Also, for each new element that you plan to introduce, you want to add that element in Sketch one screen before it appears. This allows Principle to automatically recognize a tween between the two states. In Sketch, when you move an element outside of an artboard, it removes that layer from that artboard’s hierarchy. No problem, if you drag the layer symbol back into the position that you want it in the appropriate artboard, the element will stay off screen, but it will now be in the proper place.&lt;/p&gt;
+
+&lt;h3 id=&quot;time-to-open-and-import-to-principle&quot;&gt;Time to open and import to Principle&lt;/h3&gt;
+
+&lt;p&gt;When you have finished setting up your screens, it is time to save your Sketch file and fire up Principle. The file that you are going to animate needs to be the only Sketch file open. In Principle, you will click the import button and it will show you the name of whatever Sketch file is open. Choose file, click import and now your artboards, layers, and groups should appear in Principle’s interface ready to animate.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/tutorials/principle-layout.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A great feature is that you are able to work between Sketch and Principle pretty seamlessly. If you want to make changes to the files that you imported, you simply go back to Sketch, make changes, and re-import. Principle does a good job saving any interactions that you have already defined while introducing the new elements that you added in. If you want to change the position or other properties of a layer that was imported from Sketch, it’s easiest to make that change in Sketch and then import again.&lt;/p&gt;
+
+&lt;p&gt;Here is a quick intro video to demonstrate what you can do with Principle and introduce you to the interface:&lt;/p&gt;
+
+&lt;iframe width=&quot;680&quot; height=&quot;383&quot; src=&quot;https://www.youtube.com/embed/vFrivX021-A&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h3 id=&quot;setting-up-interactions-and-animations-in-principle&quot;&gt;Setting up interactions and animations in Principle&lt;/h3&gt;
+
+&lt;p&gt;Now that our screens are imported and the stage is set for our events, it’s time to start  orchestrating. There are lots of interesting techniques that you can utilize in principle. On a single screen you can create elements that scroll and tab. You can create interactions with transitions between screens. You can create independent, reusable components that have properties to embed into the parent file. And you can use Principle’s Driver feature to add some very dynamic, position based changes like rotation and scaling based on an interaction. You can learn more about all of these methods on Principle’s &lt;a href=&quot;http://principleformac.com/tutorial.html&quot;&gt;tutorial page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In this example we will start by creating our first transition. Select the element that you want to act as the trigger. You will see a small circle with a lightning bolt icon. Click that icon and an action menu will pop up. I am animating a menu icon, so I am going to choose a ‘tap’ interaction. Click in the circle, and drag the arrow it creates to the screen you want to transition to. This will create your initial transition which you can test in principles live action screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/tutorials/principle-create-transition.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once you successfully set up your first transition and test it, it is time to configure the rest of the screen interactions that you planned out. If you now click on the transition arrows connecting your screens, it will pull up an animation timeline at the bottom of your project screen. This window will display all elements that change from screen to screen with matched properties that can be animated. Here is where proper organization and naming conventions from your sketch file will really help keep you organized. For each element, it will tell you what changes, for example x axis, y axis and opacity.&lt;/p&gt;
+
+&lt;p&gt;You can move these properties around in the timeline panel and change the easing type by clicking ‘Default’ in the middle of the timeline element. You can change the length and the offset by simply moving the blue bar for the element. This allows you to orchestrate animations with very dynamic transitions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/tutorials/principle-layout-states.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are all sorts of possibilities of what you can do with this application, and here is where you have the chance to play around and get creative until everything feels right to you. Principle has certain subtleties that you may have to dig up online to figure out, but once you figure out a solution they become simple processes. One such example is clipping and masking layers.&lt;/p&gt;
+
+&lt;p&gt;You don’t create masks in Principle like you would in Illustrator or Sketch, which you would do by linking two layers. Instead, masks are create by groupings in folders. If you put elements in a folder, you simple click ‘Clip Sublayers’ and the layers in the folder will not appear outside of it’s bounds. Because of this, you want to organize your sketch layers according to how you want to clip them.&lt;/p&gt;
+
+&lt;h3 id=&quot;exporting-principle-files-to-share&quot;&gt;Exporting Principle files to share.&lt;/h3&gt;
+
+&lt;p&gt;Once your project runs how you want it to in the live action panel, it’s time to save and share your animation which you can do as a prototype, video, or animated gif.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/video/tutorials/principle-tutorial-interaction.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can easily share as a video or animated gif by clicking the camera icon in the top right of the preview window. You have the option to use the round touch cursor, the arrow cursor, or have the cursor hidden in the recording. After selecting an option for the cursor, Principle begins a screen recording of the Preview window. When the icon starts blinking, the recording has started and you can begin to interact with your design (it may take a moment for the recording to start). Once you’re done recording your design, click the camera icon again to stop recording.&lt;/p&gt;
+
+&lt;p&gt;If you’d like to share your designs to others that may not have Principle, you can export a standalone Mac app that anyone with a Mac can open. If you’d like to share you’re design for iOS, see &lt;a href=&quot;http://principleformac.com/docs.html#running-on-device&quot;&gt;Running on Device&lt;/a&gt;. This is easily done if one downloads &lt;a href=&quot;https://itunes.apple.com/us/app/principle-mirror-ui-design/id991911319?ls=1&amp;amp;mt=8&quot;&gt;Principle Mirror&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I hope that this article helps you to get started with Principle! It’s a great program that helps you build some really killer prototypes and motion graphics that really help to communicate great UI concepts!&lt;/p&gt;</content><summary type="html">PrincipleForMac is a design tool for animating user interfaces for web, mobile and desktop. Prototyping an interactive user interface allows you to quickly evaluate and share your ideas before investing valuable engineering time in development. In the long run, prototyping complex User Interface interactions will accelerate your design-development cycle.</summary></entry><entry><title type="html">Building an AJAX contact form</title><link href="http://localhost:4000/tutorials/2017/01/21/building-an-ajax-contact-form.html" rel="alternate" type="text/html" title="Building an AJAX contact form" /><published>2017-01-22T03:11:00+01:00</published><updated>2017-01-22T03:11:00+01:00</updated><id>http://localhost:4000/tutorials/2017/01/21/building-an-ajax-contact-form</id><content type="html" xml:base="http://localhost:4000/tutorials/2017/01/21/building-an-ajax-contact-form.html">&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Ajax_(programming)&quot;&gt;AJAX&lt;/a&gt; stands for &lt;em&gt;Asynchronous Javascript and XML&lt;/em&gt; which allows us to exchange information between the server and client asynchronously which means that we can make changes on a website without having to refresh or update a page. This comes in handy when sending client information through a server for features such as contact forms.&lt;/p&gt;
+
+&lt;p&gt;There are pros and cons to using AJAX that you may want to consider before deciding to use on a simple website. Benefits include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;can be used on any platform or browser&lt;/li&gt;
+  &lt;li&gt;low transfer between client and server&lt;/li&gt;
+  &lt;li&gt;resource optimization&lt;/li&gt;
+  &lt;li&gt;allows request to a server to receive data without loading a new page&lt;/li&gt;
+  &lt;li&gt;can improve user experience&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some disadvantages of using AJAX are:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;javascript must be enabled to run&lt;/li&gt;
+  &lt;li&gt;has to make an additional call to a server&lt;/li&gt;
+  &lt;li&gt;some functions that are used in web browsing may not work as expected which means you may have to write browser specific code&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this short tutorial, we will build an example of a simple AJAX form that you can use on most web projects.&lt;/p&gt;
+
+&lt;h3 id=&quot;building-the-html-form&quot;&gt;Building the HTML form&lt;/h3&gt;
+
+&lt;p&gt;Let’s start to build the HTML scaffolding so that we can implement AJAX to submit data from a form in the background. We are going to be using jQuery to help simplify the JavaScript that we have to write and a simple PHP mailer script to handle sending the user’s data via email.&lt;/p&gt;
+
+&lt;p&gt;Create a form with the element ID &lt;code class=&quot;highlighter-rouge&quot;&gt;ajax-contact-form&lt;/code&gt;, set the &lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt; attribute to &lt;code class=&quot;highlighter-rouge&quot;&gt;post&lt;/code&gt;, and the &lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; attribute to &lt;code class=&quot;highlighter-rouge&quot;&gt;mailer.php&lt;/code&gt;. We will create the mailer.php later.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;form&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ajax-contact-form&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;method=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;action=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mailer.php&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;field&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;label&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;for=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Name:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/label&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;required&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;field&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;label&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;for=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;email&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Email:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/label&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;email&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;email&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;email&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;required&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;field&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;label&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;for=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Message:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/label&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;textarea&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;required&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/textarea&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;field&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;submit&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Send&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Our simple form has fields to collect a user’s name, email, and message. We added a &lt;code class=&quot;highlighter-rouge&quot;&gt;required&lt;/code&gt; attribute to each field to make sure to leverage HTML5 validation so that a form can only be submitted when all fields have been completed.&lt;/p&gt;
+
+&lt;p&gt;Next we will also want to create an element that will be used to display a message indicating success or an error to to the user. We will have this appear above the form.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;form-messages&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;submitting-the-form-using-ajax&quot;&gt;Submitting the Form Using AJAX&lt;/h4&gt;
+
+&lt;p&gt;Now that we have our HTML for a form in place, we now need to add some JavaScript to the page in order to submit the form. Since we are going to be using jQuery in this example, make sure that a version of jQuery is initialized before you add your script.&lt;/p&gt;
+
+&lt;p&gt;We will want to set up variables for the form and the message section. Then we want to set up an event listener for when the form is submitted.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// Define variable for the form and message section&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'#ajax-contact-form'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formMessages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'#form-messages'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Set up event listener to submit the form&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Stop he browser from submitting the form&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;preventDefault&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We will want to pass a function to the &lt;code class=&quot;highlighter-rouge&quot;&gt;submit&lt;/code&gt; method that will be executed when a user submits the form. We also told the browser to not submit the form as it normally would by preventing the default action so that we can define our own.&lt;/p&gt;
+
+&lt;p&gt;We want to now convert this data into a key/value string that can be sent with he AJAX request by serializing it. We will use jQuery &lt;code class=&quot;highlighter-rouge&quot;&gt;serialize&lt;/code&gt; method and store the result in a variable called &lt;code class=&quot;highlighter-rouge&quot;&gt;formData&lt;/code&gt;. Then we will submit the code with AJAX by adding this code to your function:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;serialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Submit using AJAX&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ajax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'POST'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'action'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formData&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We are using jQuery’s &lt;code class=&quot;highlighter-rouge&quot;&gt;ajax&lt;/code&gt; method to create a new AJAX request. We pass an object to the method that contains a number of properties used to configure the request. &lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt; specifies the HTTP method, which in this case is &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;. The &lt;code class=&quot;highlighter-rouge&quot;&gt;url&lt;/code&gt; property is the location of the script that the form data will be sent to which has been populated with the &lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; attribute from the form. And the &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; property has been populated with the serialized form data we created.&lt;/p&gt;
+
+&lt;p&gt;Now we will want to define a successful response from the server along with an unsuccessful attempt. The &lt;code class=&quot;highlighter-rouge&quot;&gt;done&lt;/code&gt; method will be called if the request completes successfully. If unsuccessful we will call the &lt;code class=&quot;highlighter-rouge&quot;&gt;fail&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'error'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'success'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+      &lt;span class=&quot;c1&quot;&gt;// Set the message textarea&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+      &lt;span class=&quot;c1&quot;&gt;// Clear the form.&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'#name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'#email'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'#message'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'success'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'error'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;responseText&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;responseText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Uh oh. An error occurred and your message could not be sent.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;That will complete the HTML and JavaScript components of the contact form. Now we have to create a PHP mailer script that will be responsible for processing the form data and sending out the email.&lt;/p&gt;
+
+&lt;h4 id=&quot;creating-a-php-mailer-script&quot;&gt;Creating a PHP Mailer Script&lt;/h4&gt;
+
+&lt;p&gt;This script will process the form data by checking that the data is valid and then sending out an email. If an error occurs, the mailer script will trigger the &lt;code class=&quot;highlighter-rouge&quot;&gt;fail&lt;/code&gt; callback that we defined in our JavaScript.&lt;/p&gt;
+
+&lt;p&gt;To create the php component, create a new file called &lt;code class=&quot;highlighter-rouge&quot;&gt;mailer.php&lt;/code&gt; and write the php code as outlined below:&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Only process POST request
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_SERVER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;REQUEST_METHOD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;POST&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;HTTP/1.0 403 Forbidden&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Oops! There was a problem with your submission. Please complete the form and try again.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;filter_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;INPUT_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FILTER_SANITIZE_FULL_SPECIAL_CHARS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$email&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;filter_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;INPUT_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'email'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FILTER_SANITIZE_EMAIL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$message&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;filter_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;INPUT_POST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'message'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FILTER_SANITIZE_FULL_SPECIAL_CHARS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Check that data was sent to the mailer.
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;filter_var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FILTER_VALIDATE_EMAIL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// Set a 400 (bad request) response code and exit.
+&lt;/span&gt;      &lt;span class=&quot;nb&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;HTTP/1.0 400 Bad Request&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Oh no! There was a problem with your submission. Please complete the form and try again.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Set the recipient email address
+&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$recipient&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;your-email-here@gmail.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Email Subject
+&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;New contact form from &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Build the email content
+&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$email_content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Name: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$email_content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Email: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$email&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$email_content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Message: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$message&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Email header
+&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$email_headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;From: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$email&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Send email
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$recipient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$email_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$email_headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Set good response code 200
+&lt;/span&gt;    &lt;span class=&quot;nb&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'HTTP/1.0 200 OK'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Thank you! Your message has been sent and we will be in touch.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Set a internal server error response code 500 if not successful
+&lt;/span&gt;    &lt;span class=&quot;nb&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'HTTP/1.0 500 Internal Server Error'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Oh No! Something went wrong and we could not send your message.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You now have an AJAX contact form. This form has to be served through a server, so upload your form to a server to see what you have to work with!&lt;/p&gt;
+
+&lt;p&gt;Additional information can be found at:&lt;/p&gt;</content><summary type="html">AJAX stands for Asynchronous Javascript and XML which allows us to exchange information between the server and client asynchronously which means that we can make changes on a website without having to refresh or update a page. This comes in handy when sending client information through a server for features such as contact forms.</summary></entry><entry><title type="html">Customer.io UX Design Project</title><link href="http://localhost:4000/tutorials/2017/01/18/case-study-customerio-design-project.html" rel="alternate" type="text/html" title="Customer.io UX Design Project" /><published>2017-01-19T03:11:00+01:00</published><updated>2017-01-19T03:11:00+01:00</updated><id>http://localhost:4000/tutorials/2017/01/18/case-study-customerio-design-project</id><content type="html" xml:base="http://localhost:4000/tutorials/2017/01/18/case-study-customerio-design-project.html">&lt;p&gt;To wrap up this design homework, I planned to pull everything together in a quick post to make it easy for review. So far I have spent about two and a half hours on the challenge and I will spend no more than 30 minutes getting this live - hopefully without too many typos.&lt;/p&gt;
+
+&lt;p&gt;To give you a quick breakdown of how I spent my time, I approached the project in this fashion:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;30 minutes to research, pull assets, plan execution&lt;/li&gt;
+  &lt;li&gt;30 minutes writing copy and quickly sketching wireframes&lt;/li&gt;
+  &lt;li&gt;45 minutes in sketch building basic components then experimenting with different layouts&lt;/li&gt;
+  &lt;li&gt;45 minutes on codepen building out the layout&lt;/li&gt;
+  &lt;li&gt;30 minutes writing post and publishing (correction - ended up spending an hour)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;photo-of-wireframes&quot;&gt;Photo of wireframes&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/customerio-wireframe.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When I began to consider layout, I started with a simple, straightforward design with a call to action that would take you to a form on &lt;a href=&quot;http://typeform.com&quot; target=&quot;blank&quot;&gt;typeform.com&lt;/a&gt;. Even though the layout was simple, going to typeform.com was overkill.&lt;/p&gt;
+
+&lt;p&gt;Next I toyed with the idea of a layout split into 3 parts. The left side would have all the content, such as speaker information, and scroll independently. The right side would be a fixed navigation of sections and a fixed sign up module. I have seen a couple sites utilize this in really interesting ways, but it is more appropriate for a big project with a lot of content such as a conference website.&lt;/p&gt;
+
+&lt;p&gt;To best address the project at hand I decided to simplify ideas to focus on the content. I wanted to make sure that all of the content and sign up information would display on a single web sized screen. I started with another simple layout and then played with some ideas to differentiate the layout by integrating different angles and content shapes and relationships.&lt;/p&gt;
+
+&lt;h3 id=&quot;simple-build-for-web---view-full-size&quot;&gt;Simple build for web - &lt;a href=&quot;/assets/images/case-studies/customerio-layout-3.png&quot; target=&quot;blank&quot;&gt;view full size&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/customerio-layout-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;alternative-build-requiring-a-bit-more-time---view-full-size&quot;&gt;Alternative build requiring a bit more time - &lt;a href=&quot;/assets/images/case-studies/customerio-layout-1.png&quot; target=&quot;blank&quot;&gt;view full size&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/customerio-layout-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;codepen-build-out&quot;&gt;Codepen build out&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/customerio-codepen.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These are two of the layouts that I put together in sketch and decided to move forward with. The sketch design made it very easy for me to quickly build out the first design as a codepen. You can view it here  &lt;a href=&quot;http://codepen.io/jarrydwafer/pen/xggpma&quot; target=&quot;blank&quot;&gt;codepen.io/jarrydwafer/pen/xggpma&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;followup&quot;&gt;Followup&lt;/h3&gt;
+
+&lt;p&gt;To take this one step further I’ll go through what I would do next if I had the budget and time to maximize the impact of this event page. For an event page like this, you can really optimize conversions by optimizing things such as headlines through A/B tests. It is also important to know where users come from, how long they stay on the page, and what percentage of those that click in the form actually complete the form.&lt;/p&gt;
+
+&lt;p&gt;Continuing to learn from projects is important so that you can be more effective on the next one. Ideally, there would also be various traffic drivers to the sign up page such as adwords, print ad’s in magazines, email campaigns, sponsorships, etc. For those of you in marketing, you know exactly what I am talking about!&lt;/p&gt;
+
+&lt;p&gt;On that note, thank you for giving me the opportunity to present this project to the team. I had a fun time putting this little diddy together. If you have any questions, please feel free to contact me.&lt;/p&gt;
+
+&lt;p&gt;Peace out!&lt;/p&gt;</content><summary type="html">To wrap up this design homework, I planned to pull everything together in a quick post to make it easy for review. So far I have spent about two and a half hours on the challenge and I will spend no more than 30 minutes getting this live - hopefully without too many typos.</summary></entry><entry><title type="html">Web Technologies + Learning Modules</title><link href="http://localhost:4000/resource/2017/01/18/resource-web-technologies.html" rel="alternate" type="text/html" title="Web Technologies + Learning Modules" /><published>2017-01-19T03:11:00+01:00</published><updated>2017-01-19T03:11:00+01:00</updated><id>http://localhost:4000/resource/2017/01/18/resource-web-technologies</id><content type="html" xml:base="http://localhost:4000/resource/2017/01/18/resource-web-technologies.html">&lt;h3 id=&quot;code-schools&quot;&gt;Code schools&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://nodeschool.io&quot;&gt;nodeschool.io&lt;/a&gt; - Open source workshops that teach web software skills.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/getify/You-Dont-Know-JS&quot;&gt;You Don’t Know JS&lt;/a&gt; - Free book series on Javascript on Github&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://egghead.io/courses/angularjs-app-from-scratch-getting-started&quot;&gt;Eggly: AngularJS Fundamentals&lt;/a&gt; - Learn to build an AngularJS application through a series of small, digestible lessons&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;technologies&quot;&gt;Technologies&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://craftcms.com&quot;&gt;Craft CMS&lt;/a&gt; - Craft is a content-first CMS that aims to make life enjoyable for developers and content managers alike.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://babeljs.io&quot;&gt;Babel&lt;/a&gt; - Use next generation Javascript, today. Babel has support for the latest version of JavaScript through syntax transformers.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;animations&quot;&gt;Animations&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://css-tricks.com/svg-line-animation-works/&quot;&gt;How SVG Line Animation Works&lt;/a&gt; - article on SVG Line Animation basics&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://airbnb.design/lottie/&quot;&gt;Lottie&lt;/a&gt; - Lottie is an iOS, Android, and React Native library that renders After Effects animations in real time, allowing apps to use animations as easily as they use static images. iOS, Android, and React Native library. &lt;a href=&quot;https://medium.com/airbnb-engineering/introducing-lottie-4ff4a0afac0e#.85rlgodw0&quot;&gt;great article&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://greensock.com&quot;&gt;GreenSock&lt;/a&gt; - high performance HTML5 animation for the modern web - especially this &lt;a href=&quot;https://greensock.com/morphSVG&quot;&gt;MorphSVG&lt;/a&gt; plugin&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://bouncejs.com&quot;&gt;Bounce.js&lt;/a&gt; - Bounce.js is a tool and JS library that lets you create beautiful CSS3 powered animations.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://daneden.github.io/animate.css/&quot;&gt;Animate.css&lt;/a&gt; - CSS Animation library&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://maxwellito.github.io/vivus/&quot;&gt;Vivus.js&lt;/a&gt; - a lightweight JavaScript class created by Max Wellito to animate SVG files, giving them the illusion of being drawn.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://connoratherton.com/loaders&quot;&gt;Loaders.css&lt;/a&gt; - Delightful and performance-focused pure css loading animations.&lt;/li&gt;
+&lt;/ol&gt;</content><summary type="html">Code schools</summary></entry><entry><title type="html">Animation + Video Resources</title><link href="http://localhost:4000/resource/2017/01/18/resource-video.html" rel="alternate" type="text/html" title="Animation + Video Resources" /><published>2017-01-19T03:11:00+01:00</published><updated>2017-01-19T03:11:00+01:00</updated><id>http://localhost:4000/resource/2017/01/18/resource-video</id><content type="html" xml:base="http://localhost:4000/resource/2017/01/18/resource-video.html">&lt;h3 id=&quot;stock-video-websites&quot;&gt;Stock Video Websites&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.coverr.co&quot;&gt;http://www.coverr.co&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://videos.pexels.com/&quot;&gt;https://videos.pexels.com/&lt;/a&gt;
+3.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;video-communities&quot;&gt;Video Communities&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://motioncorpse.tumblr.com&quot;&gt;Motion Corpse&lt;/a&gt; - animation community with publicly shared After Effects source files&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://animography.net&quot;&gt;Animography&lt;/a&gt; - animation community with publicly shared After Effects source files&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://9-squares.tumblr.com&quot;&gt;9 Squres&lt;/a&gt; - An international motion design collaboration.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;video-tutorials&quot;&gt;Video Tutorials&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cgi.tutsplus.com/tutorials/welcome-to-after-effects-overview-and-getting-started--ae-28388&quot;&gt;Welcome to After Effects&lt;/a&gt; - 2013 article to help get started with After Effects&lt;/li&gt;
+&lt;/ol&gt;</content><summary type="html">Stock Video Websites</summary></entry><entry><title type="html">Design Resources</title><link href="http://localhost:4000/resource/2017/01/18/resource-design.html" rel="alternate" type="text/html" title="Design Resources" /><published>2017-01-19T03:11:00+01:00</published><updated>2017-01-19T03:11:00+01:00</updated><id>http://localhost:4000/resource/2017/01/18/resource-design</id><content type="html" xml:base="http://localhost:4000/resource/2017/01/18/resource-design.html">&lt;h2 id=&quot;design-resources&quot;&gt;Design Resources&lt;/h2&gt;
+
+&lt;h3 id=&quot;articles-and-videos&quot;&gt;Articles and Videos&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://uxplanet.org/microinteractions-the-secret-to-great-app-design-4cfe70fbaccf#.p0vdapo5a&quot;&gt;Microinteractions: The Secret of Great App Design&lt;/a&gt; - Great article on Microinteractions by Nick Babich&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.toptal.com/designers/creative-direction/10-videos-all-designers-should-watch&quot;&gt;10 Videos All Designers Should Watch&lt;/a&gt; - 10 videos on creativity and design&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/product-hunt/these-7-books-are-necessary-reading-for-all-creatives-d2f48a8bfcf8#.5063gch18&quot;&gt;These 7 Books Are Necessary Reading for All Creatives&lt;/a&gt; - Book list to inspire your inner genius&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;freelancing&quot;&gt;Freelancing&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.upwork.com&quot;&gt;Upwork&lt;/a&gt; - Market for freelance work&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.fiverr.com&quot;&gt;Fiverr&lt;/a&gt; - Freelance services for the lean entrepreneur&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;photography&quot;&gt;Photography&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.eyeem.com/&quot;&gt;EyeEm&lt;/a&gt; - Get your photos bought by leading brands and agencies&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;microinteractions&quot;&gt;Microinteractions&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.toptal.com/designers/prototyping/a-practical-guide-to-ui-animation&quot;&gt;Guide to using Principle&lt;/a&gt; - A Step-by-step Guide to UI Animation with Principle and Sketch&lt;/li&gt;
+&lt;/ol&gt;</content><summary type="html">Design Resources</summary></entry><entry><title type="html">Archived Articles</title><link href="http://localhost:4000/resource/2017/01/18/resource-articles.html" rel="alternate" type="text/html" title="Archived Articles" /><published>2017-01-19T03:11:00+01:00</published><updated>2017-01-19T03:11:00+01:00</updated><id>http://localhost:4000/resource/2017/01/18/resource-articles</id><content type="html" xml:base="http://localhost:4000/resource/2017/01/18/resource-articles.html">&lt;h3 id=&quot;ux&quot;&gt;UX&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/interactive-mind/airbnb-guerilla-usability-testing-548b4676d06c#.qwoj12trg&quot;&gt;Airbnb Guerilla Usability Test&lt;/a&gt; - A usability test on airbnb by someone not affliated. Good way to present an idea to company!&lt;/li&gt;
+&lt;/ol&gt;</content><summary type="html">UX</summary></entry><entry><title type="html">Case Study: UX audit of sign up and onboarding process</title><link href="http://localhost:4000/case-studies/2016/12/28/case-study-sign-up-and-register-ux-audit-for-volusion.html" rel="alternate" type="text/html" title="Case Study: UX audit of sign up and onboarding process" /><published>2016-12-28T19:37:00+01:00</published><updated>2016-12-28T19:37:00+01:00</updated><id>http://localhost:4000/case-studies/2016/12/28/case-study-sign-up-and-register-ux-audit-for-volusion</id><content type="html" xml:base="http://localhost:4000/case-studies/2016/12/28/case-study-sign-up-and-register-ux-audit-for-volusion.html">&lt;p&gt;In operation since 1999 and currently powering over 40,000 online shops, &lt;a href=&quot;'https://www.volusion.com/'&quot;&gt;Volusion.com&lt;/a&gt; is a very successful ecommerce SaaS platform. At first glance, Volusion’s marketing website is slick and shiny, but once you sign up for an account that modern facade is lifted and a product painfully stuck in the past is revealed.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/volusion-1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Above is the marketing website, below is the template gallery to view available themes - laid out in a bunch of nested tables.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/volusion-dashboard.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;the-problem&quot;&gt;The Problem&lt;/h3&gt;
+
+&lt;p&gt;Volusion’s problem was clear as soon as you signed up for a trial. The product felt old and slow and it’s experience couldn’t hold a candle to its future forward competitors like Shopify and Squarespace. As a result, conversion rates were dropping week after week.&lt;/p&gt;
+
+&lt;p&gt;We were asked to analyze the competition and re-imagine what we could do between sign up and a user’s initial introduction to the product dashboard to help boost conversions. This project required a detailed understanding of user needs and behaviors, so we started at the beginning with research, as a user looking for a ecommerce platform.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/volusion-sign-up.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When a new user signs up for a trial account, Volusion creates a store and dumps that user onto a complicated, unintuitive dashboard. Once new users signed up and the dashboard was revealed, only a small percentage of those users would take a single action to start setting up their new store.&lt;/p&gt;
+
+&lt;p&gt;It was clear that there were many issues that had to be addressed. If users were unable to get started setting up their store, all hope of converting them into a paying customer were lost. We broke down what other industry leaders were doing to keep trial users moving forward, presented them to the Volusion team and were subsequently asked to introduce onboarding steps and contextual reengagement opportunities.&lt;/p&gt;
+
+&lt;h3 id=&quot;limitations&quot;&gt;Limitations&lt;/h3&gt;
+
+&lt;p&gt;This project had some major limitations in terms of team and technology. I was hired to work directly with the CEO and a ‘growth hacker’, but I was siloed from the in-house design and development teams.&lt;/p&gt;
+
+&lt;p&gt;In terms of technology, the store creation process really crawled, and the problematic dashboard was in the middle of a redesign. Both features could use some major considerations, but I was asked to come up with solutions that left these outdated technologies intact.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/volusion-audit.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;solutions&quot;&gt;Solutions&lt;/h3&gt;
+
+&lt;p&gt;Our goal was to get users from sign up through set up in as few intuitive steps as possible. We really focused on identifying different User Types that would allow us to customize our onboarding and reengagement experiences based on specific user needs.&lt;/p&gt;
+
+&lt;p&gt;To address our limitations, I made suggestions to improve the ‘perceived speed’ of store creation by giving users a small task to complete while the store is being configured and introduced steps to pick a theme, set up a logo, and upload a first product / product list so that a User reaches the dashboard with a store that is already visual configured for their brand.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/case-studies/volusion-mobile.gif&quot; alt=&quot;Where does this text go&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After a handful of deliverables and revisions, I was asked to come out to Volusion’s headquarters in Austin, TX to present to the team leads. Our review consisted of:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Competitive analysis of big market players: &lt;a href=&quot;https://www.shopify.com/&quot; target=&quot;blank&quot;&gt;Shopify&lt;/a&gt;, &lt;a href=&quot;'https://www.squarespace.com/'&quot; target=&quot;blank&quot;&gt;Squarespace&lt;/a&gt;, &lt;a href=&quot;'https://www.bigcommerce.com/'&quot; target=&quot;blank&quot;&gt;Big Commerce&lt;/a&gt;, &lt;a href=&quot;'https://www.zoey.com/'&quot; target=&quot;blank&quot;&gt;Zoey&lt;/a&gt; (by Magento)&lt;/li&gt;
+  &lt;li&gt;UX audit of sign up&lt;/li&gt;
+  &lt;li&gt;UX audit of store set up process&lt;/li&gt;
+  &lt;li&gt;Defining and identifying user types&lt;/li&gt;
+  &lt;li&gt;Collecting and leveraging user information&lt;/li&gt;
+  &lt;li&gt;Prototype sign up flow for desktop and mobile&lt;/li&gt;
+  &lt;li&gt;Prototype set up flow for desktop and mobile&lt;/li&gt;
+  &lt;li&gt;Map out reengagement opportunities&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!--
+### Lessons Learned
+
+The project required a detailed understanding of user needs and behavior, how to plan and execute integrations with products like Xero, and how to work hand-in-hand with a development team.
+--&gt;</content><summary type="html">In operation since 1999 and currently powering over 40,000 online shops, Volusion.com is a very successful ecommerce SaaS platform. At first glance, Volusion’s marketing website is slick and shiny, but once you sign up for an account that modern facade is lifted and a product painfully stuck in the past is revealed.</summary></entry></feed>

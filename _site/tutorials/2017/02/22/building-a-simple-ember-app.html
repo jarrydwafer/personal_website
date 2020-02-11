@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Building a Simple Ember.JS App</title>
+  <meta name="description" content="BUILDING A SIMPLE EMBER APP">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/jarryd-wafer-logo.png">
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/tutorials/2017/02/22/building-a-simple-ember-app.html">
+  <link rel="alternate" type="application/rss+xml" title="Jarryd Wafer" href="/feed.xml">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+</head>
+
+<body>
+<div class="mobile-menu menu--animateable">
+	<div class="app-menu-close">
+	</div>
+	<div class="app-menu">
+    <ul class="mobile-nav-list">
+      <li class="mobile-nav-list-item"><a href="/design-philosophy.html" class="mobile-nav-list-item-link nav-list-about">Design Philosophy</a></li>
+      <li class="mobile-nav-list-item"><a href="/case-studies/" class="mobile-nav-list-item-link nav-list-deck">Case Studies</a></li>
+      <li class="mobile-nav-list-item"><a href="/ux-toolset.html" class="mobile-nav-list-item-link nav-list-toolset">UX Toolset</a></li>
+      <li class="mobile-nav-list-item contact"><a href="javascript:void(0)" target="blank" class="mobile-nav-list-item-link contact-page-link">Contact</a></li>
+    </ul>
+  </div>
+</div>
+<header class="header fixed-header nav-up">
+  <nav class="get-started-nav">
+    <a href="/">
+      <h1 class="get-started-header">Jarryd Wafer</h1>
+    </a>
+    <ul class="get-started-nav-list">
+      <li class="get-started-nav-list-item"><a href="/design-philosophy.html" class="get-started-nav-list-item-link nav-list-about">Design Philosophy</a></li>
+      <li class="get-started-nav-list-item"><a href="/case-studies/" class="get-started-nav-list-item-link nav-list-deck">Case Studies</a></li>
+      <li class="get-started-nav-list-item"><a href="/ux-toolset.html" class="get-started-nav-list-item-link nav-list-toolset">UX Toolset</a></li>
+      <li class="get-started-nav-list-item contact"><a href="javascript:void(0)" target="blank" class="get-started-nav-list-item-link contact-page-link">Contact</a></li>
+    </ul>
+    <div class="menu-icon">
+      Menu
+    </div>
+  </nav>
+</header>
+
+<section class="blog-hero">
+  <div class="blog-featured-graphic case-study-8">
+  </div>
+</section>
+
+<main class="page-content page-post" aria-label="Content">
+  <div class="wrapper">
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Building a Simple Ember.JS App</h1>
+        <p class="post-meta"><time datetime="2017-02-23T03:11:00+01:00" itemprop="datePublished">Feb 22, 2017</time></p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <h2 id="building-a-simple-ember-app">BUILDING A SIMPLE EMBER APP</h2>
+
+<p>Imagine that a group of developers had gone looking for best practices in creating a web app front end, and then codified what they found into a framework. That is the idea of Ember JS. Ember brings back the fun of Rails, this time for single-page applications with great performance.</p>
+
+<p>Ember is an open source JavaScript framework, maintained at <a href="http://emberjs.com">emberjs.com</a> and on Github. It provides much of the front-end infrastructure you need so you can speed up the development of web apps. While using ember, you’ll write less code and you’ll write simpler code. And simpler code is better code.</p>
+
+<p>By injecting object-oriented design principles into JavaScript to help you strucutre your code in a sensible way, Ember lets you think at a modular level. this makes your app easier to create and maintain. The features packaged with Ember rely on Node.js, npm, and Handlebars.</p>
+
+<p>In this tutorial we will build a simple, single page ember app. Let’s get it!</p>
+
+<h3 id="install-ember-and-ember-cli">Install Ember and Ember CLI</h3>
+
+<p>Ember CLI is a command-line interface for building Ember apps, and it’s the project team’s preferred means of obtaining the framework libraries. Ember CLI makes short work out of a lot of boilerplate tasks, such as building and deploying, executing tests, adding files to create new features, and so on.</p>
+
+<p>It’s worth noting, that while we’ll use Node to run the Ember CLI development tools, Ember itself isn’t a server-side framework. Ember is used for creating browser-resident apps.</p>
+
+<p>Let’s start out by installing bower, phantomjs (dependency as a test execution environment), and ember-cli globally.</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>npm install -g bower
+<span class="gp">$ </span>npm install -g phantomjs
+<span class="gp">$ </span>npm install -g ember-cli
+</code></pre>
+</div>
+
+<p>Installing Ember CLI causes the Ember framework libraries to be installed, along with the CLI itself. Now that we have Ember and Ember CLI we’re ready to start coding.</p>
+
+<h3 id="creating-an-app-repository">Creating an App Repository</h3>
+
+<p>Ember CLI takes a very app-centric approach. The first thing you do is to create the app, and every module you create is part of that app. Our first step is to create the app’s repository (Ember CLI assumes you’ll be using Git, so it references a project as a repository).</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>ember new webapp
+</code></pre>
+</div>
+
+<p>Before we write our UI code, let’s also install a Bootstrap stylesheet to give us a good starting point. From your new Ember app directory, you can run the following commands:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">cd </span>webapp
+<span class="gp">$ </span>npm install
+<span class="gp">$ </span>bower install
+<span class="gp">$ </span>bower install bootstrap --save
+</code></pre>
+</div>
+
+<p>and then add these lines to <em>webapp/ember-cli-buld.js</em>, right before the last line of code:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>app.import('bower_components/bootstrap/dist/css/bootstrap.css');
+app.import('bower_components/bootstrap/dist/css/bootstrap.css.ma;',{
+  destDir: 'assets'
+});
+</code></pre>
+</div>
+
+<p>Once you are able to do all of these thing successfully, you can now run your ember app with the following command:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>ember serve
+</code></pre>
+</div>
+
+<h3 id="creating-a-new-template">Creating a new template</h3>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>ember generate template application
+</code></pre>
+</div>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>Grow Co. Designs<span class="nt">&lt;/h1&gt;</span>
+
+
+</code></pre>
+</div>
+
+<p>Generate a route for the homepage</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>ember generate route homepage
+</code></pre>
+</div>
+
+<h3 id="routes">Routes</h3>
+
+<h3 id="components">Components</h3>
+
+<p>To create an ember component:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>ember generate component main-nav
+</code></pre>
+</div>
+
+<h3 id="typekit">Typekit</h3>
+
+<h3 id="less">LESS</h3>
+
+<h3 id="creating-a-contact-form">Creating a contact form</h3>
+<ul>
+  <li>nodemailer</li>
+</ul>
+
+      </div>
+
+      
+    </article>
+  </div>
+</main>
+
+<script>
+  var postBody = select('body');
+  postBody.classList.add('post');
+</script>
+
+<div id="contact-menu-wrap">
+
+  <a href="#" id="close" class="on">x</a>
+
+  <div class="contact-top-bg-section">
+    <img src="/assets/images/jarryd-wafer-portrait.png" class="contact-portrait">
+  </div>
+
+  <div class="contact-content-section page-home">
+    <p>My name is Jarryd Wafer and I live in Amsterdam, NL where I currently work as a Product and UX designer for Booking.com where I manage a team of software developers for an agile product team in Boooking's Marketing department.</p>
+    <p>I am currently interested in new projects and interested in full-time work opportunities, speaking engagements, and teaching opportunities.</p>
+    <p>Have something that you would like to talk about? Get in touch. Maybe we will get to build something great together! </p>
+    <p class="contact-sig">Jarryd Wafer</p>
+    <p class="contact-links">
+      <a href="mailto:jarrydwafer@gmail.com">Email</a> |
+      <a href="https://www.linkedin.com/in/jarryd-wafer" target="_blank">LinkedIn</a>
+      <!--
+      |
+      <a href="https://github.com/jarrydwafer" target="_blank">Github</a>
+      -->
+    </p>
+  </div>
+
+  <!-- Content to potentially add
+    'Resume and references avaiable at request'
+  -->
+</div>
+
+
+<footer class="site-footer">
+
+  <div class="wrapper">
+    <p class="footer-copy">
+    <a href="/">Home</a> | <a href="/case-studies/">Case Studies</a> | <a href="/tutorials/">Tutorials</a> | <a href="/ux-toolset.html">Toolset</a> | <a href="javascript:void(0)"class="contact-page-link">Connect</a><br>
+    © 2020 Jarryd Wafer. This site is open source. Want to see how I built it? <a href="https://github.com/jarrydwafer/portfolio">See the source</a>.
+    </p>
+  </div>
+
+</footer>
+
+</body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-88193410-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</html>

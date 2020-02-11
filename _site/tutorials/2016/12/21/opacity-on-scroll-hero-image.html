@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opacity on scroll for a hero image</title>
+  <meta name="description" content="Micro-interactions are quickly becoming the buzz in UX. The value of subtle effects that delight users could be the difference between your product and your ...">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/jarryd-wafer-logo.png">
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/tutorials/2016/12/21/opacity-on-scroll-hero-image.html">
+  <link rel="alternate" type="application/rss+xml" title="Jarryd Wafer" href="/feed.xml">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+</head>
+
+<body>
+<div class="mobile-menu menu--animateable">
+	<div class="app-menu-close">
+	</div>
+	<div class="app-menu">
+    <ul class="mobile-nav-list">
+      <li class="mobile-nav-list-item"><a href="/design-philosophy.html" class="mobile-nav-list-item-link nav-list-about">Design Philosophy</a></li>
+      <li class="mobile-nav-list-item"><a href="/case-studies/" class="mobile-nav-list-item-link nav-list-deck">Case Studies</a></li>
+      <li class="mobile-nav-list-item"><a href="/ux-toolset.html" class="mobile-nav-list-item-link nav-list-toolset">UX Toolset</a></li>
+      <li class="mobile-nav-list-item contact"><a href="javascript:void(0)" target="blank" class="mobile-nav-list-item-link contact-page-link">Contact</a></li>
+    </ul>
+  </div>
+</div>
+<header class="header fixed-header nav-up">
+  <nav class="get-started-nav">
+    <a href="/">
+      <h1 class="get-started-header">Jarryd Wafer</h1>
+    </a>
+    <ul class="get-started-nav-list">
+      <li class="get-started-nav-list-item"><a href="/design-philosophy.html" class="get-started-nav-list-item-link nav-list-about">Design Philosophy</a></li>
+      <li class="get-started-nav-list-item"><a href="/case-studies/" class="get-started-nav-list-item-link nav-list-deck">Case Studies</a></li>
+      <li class="get-started-nav-list-item"><a href="/ux-toolset.html" class="get-started-nav-list-item-link nav-list-toolset">UX Toolset</a></li>
+      <li class="get-started-nav-list-item contact"><a href="javascript:void(0)" target="blank" class="get-started-nav-list-item-link contact-page-link">Contact</a></li>
+    </ul>
+    <div class="menu-icon">
+      Menu
+    </div>
+  </nav>
+</header>
+
+<section class="blog-hero">
+  <div class="blog-featured-graphic tutorial-3">
+  </div>
+</section>
+
+<main class="page-content page-post" aria-label="Content">
+  <div class="wrapper">
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Opacity on scroll for a hero image</h1>
+        <p class="post-meta"><time datetime="2016-12-21T19:05:59+01:00" itemprop="datePublished">Dec 21, 2016</time></p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Micro-interactions are quickly becoming the buzz in UX. The value of subtle effects that delight users could be the difference between your product and your competitors. That being said, micro-interactions should not be a development focus nor should they ever be distracting to a user. They should be subtle, yet add that polish that may differentiate your site from others.</p>
+
+<p>With the introduction of Github’s <a href="'https://guides.github.com/features/mastering-markdown/'">Markdown</a> language for contemporary blogging platforms, the focus of articles has really shifted towards content, which should have always been the most important element on any page!</p>
+
+<p>With this welcomed trend of clean, clear typographic content, a hero image becomes more and more important to set the tone of the article. Here designers and developers have the chance to add some subtle, fancy nuances to pages that just may bring a smile to a readers face before they even dive into the article. In this tutorial we are going to walk through the set up of a hero image that fades out as the user starts to scroll.</p>
+
+<h2 id="setting-up-the-hero-section">Setting up the hero section</h2>
+
+<p>To get started, let’s set up a basic layout with a hero section, add appropriate styles and set up a background image.</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">"hero-section"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">"hero-section-title"</span><span class="nt">&gt;</span>
+    Fancy things here
+  <span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;/section&gt;</span>
+
+<span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">"page-content"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/section&gt;</span>
+</code></pre>
+</div>
+
+<p>We want the background image to be fixed as the content container slide up and over it when the user begins to scroll. To do this we want the hero sections position to be fixed with a set height. Next, we want to make sure that the page content container is relatively positioned from the top the same value of pixels as the height of the fixed hero section. You could write this in css as follows:</p>
+
+<div class="language-scss highlighter-rouge"><pre class="highlight"><code><span class="nc">.hero-section</span> <span class="p">{</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">100vw</span><span class="p">;</span>  
+  <span class="nl">background</span><span class="p">:</span> <span class="sx">url(https://images.unsplash.com/photo-1464823063530-08f10ed1a2dd)</span> <span class="nb">center</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">background-size</span><span class="p">:</span> <span class="n">cover</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.page-content</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">100vw</span><span class="p">;</span>
+  <span class="nl">min-height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="mh">#222</span><span class="p">;</span> <span class="c1">// desired color behind hero image
+</span>  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span> <span class="c1">// reset margin for full width image
+</span><span class="p">}</span>
+</code></pre>
+</div>
+
+<p>At this point you should have a full width hero section with an image that stays fixed as the main content slides up when you scroll. Make sure that you choose a great image to set the tone for your page that will look good on high resolution monitors. A good place to find great images are free stock sites such as <a href="'https://unsplash.com/'">unsplash</a> and <a href="'https://pixabay.com/'">pixabay</a>.</p>
+
+<h2 id="setting-up-the-opacity-calculation">Setting up the opacity calculation</h2>
+
+<p>Now we get to the fun part, writing some javascript to change the opacity based on the amount of pixels that you have scrolled from the top of the page. We will be using jQuery in this example, so make sure that you have the dependency in your html.</p>
+
+<p>We start out by binding a function to window scroll and defining a variable for our hero container height as well as the distance that we have scrolled from the top.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'scroll'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">hero</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'.hero-container'</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">height</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">outerHeight</span><span class="p">();</span> <span class="c1">// height of hero-container</span>
+  <span class="kd">var</span> <span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">();</span> <span class="c1">// distance scrolled from top</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Now we want to calculate a value that will correlate with the opacity that we desire. In this case, we want the opacity to start at 1 and move towards 0 as we scroll. In order to do this we will create a variable that equals 1 minus the <code class="highlighter-rouge">scrollTop</code> value divided by the <code class="highlighter-rouge">height</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">calc</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="nx">scrollTop</span> <span class="o">/</span> <span class="nx">height</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>If you would like to check this value, you can log it to the console to inspect as your scroll by adding <code class="highlighter-rouge">console.log(calc)</code> to the end of your function. Make sure that you have the desired value for opacity. When you do, it’s time to add that opacity value to our hero section.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">hero</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+  <span class="s1">'opacity'</span><span class="p">:</span> <span class="nx">calc</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<h2 id="performance-and-creating-variability">Performance and creating variability</h2>
+
+<p>At this point, your hero image should be working fine, but to really implement this microinteraction properly we want to further consider performance and variability.</p>
+
+<p>First, we want to set two rules for opacity so that it is only changing in the DOM if it is equal to or between the values of 0 and 1. Any values outside of this range will not affect opacity, but will require changes to the DOM which we want to avoid for performance implications. In order to do this, we follow up with appropriate rules.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span> <span class="nx">calc</span> <span class="o">&gt;</span> <span class="s1">'1'</span> <span class="p">){</span>
+  <span class="nx">hero</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+    <span class="s1">'opacity'</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">});</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">calc</span> <span class="o">&lt;</span> <span class="s1">'0'</span> <span class="p">){</span>
+  <span class="nx">hero</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+    <span class="s1">'opacity'</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Next, I would like to set the stage for how some different variations of how this effect could be calculated. To do this, we will add another variable to the equation that we will call ‘rangeOffset’. Here we want to set a value that is less than the height that will offset the calc function. Here you can be creative, but a simply implementation may look like this:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">rangeOffset</span> <span class="o">=</span> <span class="mi">160</span>
+<span class="kd">var</span> <span class="nx">calc</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="nx">scrollTop</span> <span class="o">/</span> <span class="p">(</span><span class="nx">height</span> <span class="o">-</span> <span class="nx">rangeOffset</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>This means that the hero image will fade out completely 160 pixels from the top of the content section. A working javascript snippet should look something like this:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'scroll'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">hero</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'.hero-container'</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">height</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">outerHeight</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">();</span>  
+  <span class="kd">var</span> <span class="nx">rangeOffset</span> <span class="o">=</span> <span class="mi">160</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">calc</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="nx">scrollTop</span> <span class="o">/</span> <span class="p">(</span><span class="nx">height</span> <span class="o">-</span> <span class="nx">rangeOffset</span><span class="p">);</span>
+
+  <span class="nx">hero</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span> <span class="s1">'opacity'</span><span class="p">:</span> <span class="nx">calc</span> <span class="p">});</span>
+
+  <span class="k">if</span> <span class="p">(</span> <span class="nx">calc</span> <span class="o">&gt;</span> <span class="s1">'1'</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">hero</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span> <span class="s1">'opacity'</span><span class="p">:</span> <span class="mi">1</span> <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">calc</span> <span class="o">&lt;</span> <span class="s1">'0'</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">hero</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span> <span class="s1">'opacity'</span><span class="p">:</span> <span class="mi">0</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>There we go! There are lots of different ways to calculate this value, but here is a simple straightforward way to get you started. If you would like to see a demo of this effect, you can view a working example on codepen - <a href="http://codepen.io/jarrydwafer/pen/MbRWRz">Opacity on scroll</a>.</p>
+
+      </div>
+
+      
+    </article>
+  </div>
+</main>
+
+<script>
+  var postBody = select('body');
+  postBody.classList.add('post');
+</script>
+
+<div id="contact-menu-wrap">
+
+  <a href="#" id="close" class="on">x</a>
+
+  <div class="contact-top-bg-section">
+    <img src="/assets/images/jarryd-wafer-portrait.png" class="contact-portrait">
+  </div>
+
+  <div class="contact-content-section page-home">
+    <p>My name is Jarryd Wafer and I live in Amsterdam, NL where I currently work as a Product and UX designer for Booking.com where I manage a team of software developers for an agile product team in Boooking's Marketing department.</p>
+    <p>I am currently interested in new projects and interested in full-time work opportunities, speaking engagements, and teaching opportunities.</p>
+    <p>Have something that you would like to talk about? Get in touch. Maybe we will get to build something great together! </p>
+    <p class="contact-sig">Jarryd Wafer</p>
+    <p class="contact-links">
+      <a href="mailto:jarrydwafer@gmail.com">Email</a> |
+      <a href="https://www.linkedin.com/in/jarryd-wafer" target="_blank">LinkedIn</a>
+      <!--
+      |
+      <a href="https://github.com/jarrydwafer" target="_blank">Github</a>
+      -->
+    </p>
+  </div>
+
+  <!-- Content to potentially add
+    'Resume and references avaiable at request'
+  -->
+</div>
+
+
+<footer class="site-footer">
+
+  <div class="wrapper">
+    <p class="footer-copy">
+    <a href="/">Home</a> | <a href="/case-studies/">Case Studies</a> | <a href="/tutorials/">Tutorials</a> | <a href="/ux-toolset.html">Toolset</a> | <a href="javascript:void(0)"class="contact-page-link">Connect</a><br>
+    © 2020 Jarryd Wafer. This site is open source. Want to see how I built it? <a href="https://github.com/jarrydwafer/portfolio">See the source</a>.
+    </p>
+  </div>
+
+</footer>
+
+</body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-88193410-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</html>
